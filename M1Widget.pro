@@ -26,13 +26,27 @@ CONFIG += c++11
 
 SOURCES += \
         main.cpp \
-        widget.cpp
+        widget.cpp \
+    form.cpp \
+    ../M1Kryptographie/nbild.cpp \
+    ../M1Kryptographie/cbild.cpp \
+    gol.cpp \
+    ../M1CellularAutomaton/gameoflife.cpp\
+    ../M1CellularAutomaton/cell.cpp
 
 HEADERS += \
-        widget.h
+        widget.h \
+    form.h \
+    ../M1Kryptographie/nbild.h \
+    ../M1Kryptographie/cbild.h \
+    gol.h \
+    ../M1CellularAutomaton/gameoflife.h\
+    ../M1CellularAutomaton/cell.h
 
 FORMS += \
-        widget.ui
+        widget.ui \
+    form.ui \
+    gol.ui
 
 
 # Default rules for deployment.
