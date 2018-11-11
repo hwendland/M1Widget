@@ -37,7 +37,7 @@ void GOL::draw_board(QPaintEvent *){
 
     for (int row = 0; row < nrows; row++){
         for (int col = 0; col < ncols; col++){
-            if(game.currentGeneration[row][col].status == 0){
+            if(game.currentGeneration[row][col].status == 1){
                 painter.setBrush(Qt::black);
             } else {
                 painter.setBrush(Qt::white);
@@ -133,5 +133,19 @@ void GOL::on_pushButton_5_clicked()
     string directory =  fileName.toUtf8().constData();
 
     game.import_state(directory);
+    update();
+}
+
+void GOL::on_pushButton_6_clicked()
+{
+    int ncols = game.ncols;
+    int nrows = game.nrows;
+
+    for (int row = 0; row < nrows; row++){
+        for (int col = 0; col < ncols; col++){
+            game.currentGeneration[row][col] = Cell(row, col, 0);
+        }
+    }
+
     update();
 }
