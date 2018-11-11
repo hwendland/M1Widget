@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QPainter>
 #include "../M1Kryptographie/nbild.h"
+#include <QMessageBox>
 
 namespace Ui {
 class Form;
@@ -18,6 +19,7 @@ public:
     ~Form();
     void paintEvent(QPaintEvent *);
     void draw_image(QPaintEvent *, NBild image);
+    QMessageBox messageBox;
 
 private slots:
     void on_pushButton_clicked();
@@ -35,9 +37,9 @@ private:
 
    int img_width = 400;
    int img_height = 400;
-   bool toogle_draw;
 
-   NBild image;
+   NBild image = NBild(10,10);
+   bool toogle_draw = true;
 };
 
 #endif // FORM_H

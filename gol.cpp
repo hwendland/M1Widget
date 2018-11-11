@@ -25,7 +25,11 @@ GOL::~GOL()
 }
 
 void GOL::paintEvent(QPaintEvent *e){
+
+
+
     draw_board(e);
+    QPainter painter(this);
 }
 
 void GOL::draw_board(QPaintEvent *){
@@ -33,7 +37,6 @@ void GOL::draw_board(QPaintEvent *){
     int nrows = game.nrows;
 
     QPainter painter(this);
-    painter.setBrush(Qt::black);
 
     for (int row = 0; row < nrows; row++){
         for (int col = 0; col < ncols; col++){
@@ -114,25 +117,27 @@ void GOL::on_pushButton_3_clicked()
     int size = ui->spinBox_2->value();
     pair<int,int> dimensions = {size, size};
     game.change_dimensions(dimensions);
+    game.get_random_field();
     update();
 }
 
 
 
-void GOL::on_pushButton_4_clicked()
+void GOL::on_pushButton_4_clicked() //save
 {
     QString fileName = QFileDialog::getSaveFileName(this, "Save as");
     string directory =  fileName.toUtf8().constData();
-    game.write_to_file(directory);
+    if(!(directory == "")){
+        game.write_to_file(directory);
+    }
     update();
 }
 
-void GOL::on_pushButton_5_clicked()
+void GOL::on_pushButton_5_clicked() //load
 {
     QString fileName = QFileDialog::getOpenFileName(this, "Open the file");
     string directory =  fileName.toUtf8().constData();
 
-    game.import_state(directory);
     update();
 }
 
@@ -149,3 +154,10 @@ void GOL::on_pushButton_6_clicked()
 
     update();
 }
+
+void GOL::on_spinBox_valueChanged(int arg1)
+{
+    int intervall = ui->spinBox->value();
+    timer -> setInterval(intervall);
+}
+

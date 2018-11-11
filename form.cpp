@@ -10,6 +10,8 @@
 #include <QFileDialog>
 #include <string>
 
+#include <QMessageBox>
+
 Form::Form(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Form)
@@ -26,9 +28,7 @@ Form::~Form()
 }
 
 void Form::paintEvent(QPaintEvent *e){
-    if(toogle_draw == true){
         this->draw_image(e,image);
-    }
 }
 
 void Form::draw_image(QPaintEvent *, NBild image){ //draw
@@ -48,9 +48,9 @@ void Form::draw_image(QPaintEvent *, NBild image){ //draw
                 painter.setBrush(Qt::white);
                 painter.setPen(Qt::white);
             }
-            int x1 = (col*img_width)/ncols +10;
+            int x1 = (col*img_width)/ncols;
             int y1 = (row*img_height)/nrows;
-            int x2 = ((col+1)*img_width)/ncols +10;
+            int x2 = ((col+1)*img_width)/ncols;
             int y2 = ((row+1)*img_height)/nrows;
 
             painter.drawRect(x1,y1,
@@ -65,7 +65,17 @@ void Form::on_pushButton_clicked() //load
     QString fileName = QFileDialog::getOpenFileName(this, "Open the file");
 
     string directory =  fileName.toUtf8().constData();
-    image.import(directory);
+    //std::cout << "(" << directory << ")";
+
+    try{
+        image.import(directory);
+    } catch(int e){
+        if(e == 1){
+            messageBox.critical(0,"Error","Can't find the requested file");
+        } else if (e == 0){
+            messageBox.critical(0,"Error","Invalid input format");
+        }
+    }
     toogle_draw = true;
     update();
 }
@@ -83,7 +93,6 @@ void Form::on_pushButton_2_clicked() //encode
 
     CBild crypt = CBild(key);
     image = crypt.encode(image);
-    image.writeToFile("aaaa");
 
     toogle_draw = true;
     update();
@@ -111,8 +120,15 @@ void Form::on_pushButton_4_clicked() //overlay
     string directory =  fileName.toUtf8().constData();
 
     NBild overlay_img;
-    overlay_img.import(directory);
-
+    try{
+        overlay_img.import(directory);
+    } catch(int e){
+        if(e == 1){
+            messageBox.critical(0,"Error","Can't find the requested file");
+        } else if (e == 0){
+            messageBox.critical(0,"Error","Invalid input format");
+        }
+    }
     string key;
     if(ui->radioButton->isChecked()){
         key = "A";
@@ -120,8 +136,12 @@ void Form::on_pushButton_4_clicked() //overlay
         key = "B";
     }
 
-    CBild crypt = CBild(key);
-    image = crypt.overlay(image,overlay_img);
+    if (overlay_img.ncols == image.ncols && overlay_img.nrows == image.nrows){
+        CBild crypt = CBild(key);
+        image = crypt.overlay(image,overlay_img);
+    } else {
+        messageBox.critical(0,"Error","Incompatible image sizes");
+    }
 
     toogle_draw = true;
     update();
@@ -134,9 +154,16 @@ void Form::on_pushButton_5_clicked() //save
     QString fileName = QFileDialog::getSaveFileName(this, "Save as");
     string directory =  fileName.toUtf8().constData();
 
-    image.writeToFile(directory);
-
+    try{
+        image.writeToFile(directory);
+    } catch(int e){
+        if(e == 1){
+            messageBox.critical(0,"Error","Can't find the requested file");
+        }
+    }
     toogle_draw = true;
     update();
 
 }
+
+

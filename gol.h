@@ -5,6 +5,7 @@
 #include "../M1CellularAutomaton/gameoflife.h"
 #include <QtCore>
 #include <QDebug>
+#include <QMessageBox>
 
 namespace Ui {
 class GOL;
@@ -21,6 +22,7 @@ public:
     void draw_board(QPaintEvent *);
     GameOfLife game = GameOfLife();
     void mousePressEvent( QMouseEvent*ev);
+    QMessageBox messageBox;
 
     QTimer *timer;
 
@@ -39,6 +41,10 @@ private slots:
     void on_pushButton_5_clicked();
 
     void on_pushButton_6_clicked();
+
+    void on_spinBox_valueChanged(int arg1);
+
+    void on_spinBox_2_valueChanged(int arg1);
 
 private:
     Ui::GOL *ui;
