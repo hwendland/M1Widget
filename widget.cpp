@@ -8,8 +8,9 @@ Widget::Widget(QWidget *parent) :
     ui(new Ui::Widget)
 {
     ui->setupUi(this);
-    ui->tabWidget->insertTab(0,new Form(), QString("Krypto"));
-    ui->tabWidget->insertTab(0,new GOL(), QString("GOL"));
+    ui->tabWidget->insertTab(0,new Form(), QString("Visuelle Kryptographie"));
+    ui->tabWidget->insertTab(0,new GOL(), QString("Game of Life"));
+    ui->tabWidget->removeTab(2);
 
 }
 
