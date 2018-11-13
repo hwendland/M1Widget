@@ -42,7 +42,7 @@ private slots:
 
     void on_pushButton_6_clicked();
 
-    void on_spinBox_valueChanged(int arg1);
+    void on_spinBox_valueChanged();
 
 private:
     Ui::GOL *ui;

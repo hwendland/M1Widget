@@ -32,16 +32,15 @@ void Form::paintEvent(QPaintEvent *e){
 }
 
 void Form::draw_image(QPaintEvent *, NBild image){ //draw
-    int nrows = image.nrows;
-    int ncols = image.ncols;
+    int nrows = static_cast<int>(image.nrows);
+    int ncols = static_cast<int>(image.ncols);
 
     QPainter painter(this);
     painter.setBrush(Qt::black);
 
-
     for (int row = 0; row < nrows; row++){
         for (int col = 0; col < ncols; col++){
-            if(image(row, col) == 0){
+            if(image(static_cast<size_t>(row), static_cast<size_t>(col)) == 0){
                 painter.setBrush(Qt::black);
                 painter.setPen(Qt::black);
             } else {
@@ -65,22 +64,18 @@ void Form::on_pushButton_clicked() //load
     QString fileName = QFileDialog::getOpenFileName(this, "Open the file");
 
     string directory =  fileName.toUtf8().constData();
-    //std::cout << "(" << directory << ")";
-
     try{
         image.import(directory);
     } catch(int e){
         if(e == 1){
-            messageBox.critical(0,"Error","Can't find the requested file");
+            messageBox.critical(nullptr,"Error","Can't find the requested file");
         } else if (e == 0){
-            messageBox.critical(0,"Error","Invalid input format");
+            messageBox.critical(nullptr,"Error","Invalid input format");
         }
     }
     toogle_draw = true;
     update();
 }
-
-
 
 void Form::on_pushButton_2_clicked() //encode
 {
@@ -124,9 +119,9 @@ void Form::on_pushButton_4_clicked() //overlay
         overlay_img.import(directory);
     } catch(int e){
         if(e == 1){
-            messageBox.critical(0,"Error","Can't find the requested file");
+            messageBox.critical(nullptr,"Error","Can't find the requested file");
         } else if (e == 0){
-            messageBox.critical(0,"Error","Invalid input format");
+            messageBox.critical(nullptr,"Error","Invalid input format");
         }
     }
     string key;
@@ -140,14 +135,12 @@ void Form::on_pushButton_4_clicked() //overlay
         CBild crypt = CBild(key);
         image = crypt.overlay(image,overlay_img);
     } else {
-        messageBox.critical(0,"Error","Incompatible image sizes");
+        messageBox.critical(nullptr,"Error","Incompatible image sizes");
     }
 
     toogle_draw = true;
     update();
 }
-
-
 
 void Form::on_pushButton_5_clicked() //save
 {
@@ -158,12 +151,11 @@ void Form::on_pushButton_5_clicked() //save
         image.writeToFile(directory);
     } catch(int e){
         if(e == 1){
-            messageBox.critical(0,"Error","Can't find the requested file");
+            messageBox.critical(nullptr,"Error","Can't find the requested file");
         }
     }
     toogle_draw = true;
     update();
-
 }
 
 

@@ -131,7 +131,11 @@ void GOL::on_pushButton_5_clicked() //load
 {
     QString fileName = QFileDialog::getOpenFileName(this, "Open the file");
     string directory =  fileName.toUtf8().constData();
-
+    try {
+        game.import_state(directory);
+    } catch (int) {
+        messageBox.critical(nullptr, "Error", "Invalip input format");
+    }
     update();
 }
 
@@ -149,7 +153,7 @@ void GOL::on_pushButton_6_clicked()
     update();
 }
 
-void GOL::on_spinBox_valueChanged(int arg1)
+void GOL::on_spinBox_valueChanged()
 {
     int intervall = ui->spinBox->value();
     timer -> setInterval(intervall);
