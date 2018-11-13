@@ -44,8 +44,6 @@ private slots:
 
     void on_spinBox_valueChanged(int arg1);
 
-    void on_spinBox_2_valueChanged(int arg1);
-
 private:
     Ui::GOL *ui;
     int img_width = 400;

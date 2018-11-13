@@ -25,9 +25,6 @@ GOL::~GOL()
 }
 
 void GOL::paintEvent(QPaintEvent *e){
-
-
-
     draw_board(e);
     QPainter painter(this);
 }
@@ -53,9 +50,6 @@ void GOL::draw_board(QPaintEvent *){
 
             painter.drawRect(x1,y1,
                              x2-x1,y2-y1);
-
-            //std::cout << "(" << col << "." << y1 << ")";
-
         }
     }
 }
