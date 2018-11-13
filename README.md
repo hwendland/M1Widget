@@ -1,1 +1,0 @@
-# Reading invalid State-files in the GOL may break the system
