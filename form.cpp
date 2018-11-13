@@ -27,10 +27,16 @@ Form::~Form()
     delete ui;
 }
 
+/*!
+ * @brief draws the image on the widget
+ */
 void Form::paintEvent(QPaintEvent *e){
         this->draw_image(e,image);
 }
 
+/*!
+ * @brief draws the image on the widget
+ */
 void Form::draw_image(QPaintEvent *, NBild image){ //draw
     int nrows = static_cast<int>(image.nrows);
     int ncols = static_cast<int>(image.ncols);
@@ -59,6 +65,10 @@ void Form::draw_image(QPaintEvent *, NBild image){ //draw
     toogle_draw = false;
 }
 
+
+/*!
+ * @brief loads a image from the chose file
+ */
 void Form::on_pushButton_clicked() //load
 {
     QString fileName = QFileDialog::getOpenFileName(this, "Open the file");
@@ -77,6 +87,10 @@ void Form::on_pushButton_clicked() //load
     update();
 }
 
+
+/*!
+ * @brief encodes the image with the chosen key
+ */
 void Form::on_pushButton_2_clicked() //encode
 {
     string key;
@@ -93,6 +107,9 @@ void Form::on_pushButton_2_clicked() //encode
     update();
 }
 
+/*!
+ * @brief decodes the image with the chosen key
+ */
 void Form::on_pushButton_3_clicked() //decode
 {
     string key;
@@ -109,6 +126,9 @@ void Form::on_pushButton_3_clicked() //decode
     update();
 }
 
+/*!
+ * @brief lays the chosen image over the currently displayed image
+ */
 void Form::on_pushButton_4_clicked() //overlay
 {
     QString fileName = QFileDialog::getOpenFileName(this, "Open the file");
@@ -142,6 +162,9 @@ void Form::on_pushButton_4_clicked() //overlay
     update();
 }
 
+/*!
+ * @brief saves the image in the chosen file
+ */
 void Form::on_pushButton_5_clicked() //save
 {
     QString fileName = QFileDialog::getSaveFileName(this, "Save as");

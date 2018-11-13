@@ -24,11 +24,17 @@ GOL::~GOL()
     delete ui;
 }
 
+/*!
+ * @brief draws the board
+ */
 void GOL::paintEvent(QPaintEvent *e){
     draw_board(e);
     QPainter painter(this);
 }
 
+/*!
+ * @brief draws the board
+ */
 void GOL::draw_board(QPaintEvent *){
     int ncols = game.ncols;
     int nrows = game.nrows;
@@ -54,6 +60,9 @@ void GOL::draw_board(QPaintEvent *){
     }
 }
 
+/*!
+ * @brief changes the state of the chosen field when clicked on
+ */
 void GOL::mousePressEvent(QMouseEvent*ev){
     QPoint point = ev -> pos();
 
@@ -79,13 +88,18 @@ void GOL::mousePressEvent(QMouseEvent*ev){
 
 }
 
+/*!
+ * @brief evolves the board once
+ */
 void GOL::MySlot(){
     game.evolve();
     update();
 }
 
 
-
+/*!
+ * @brief start/stops the evolution
+ */
 void GOL::on_pushButton_clicked()
 {
     int intervall = ui->spinBox->value();
@@ -99,7 +113,9 @@ void GOL::on_pushButton_clicked()
 }
 
 
-
+/*!
+ * @brief changes the time intervall according to the number in the spinbox
+ */
 void GOL::on_pushButton_2_clicked()
 {
     int intervall = ui->spinBox->value();
@@ -116,7 +132,9 @@ void GOL::on_pushButton_3_clicked()
 }
 
 
-
+/*!
+ * @brief saves the state of the game in the chosen file
+ */
 void GOL::on_pushButton_4_clicked() //save
 {
     QString fileName = QFileDialog::getSaveFileName(this, "Save as");
@@ -127,6 +145,9 @@ void GOL::on_pushButton_4_clicked() //save
     update();
 }
 
+/*!
+ * @brief load given state of the game
+ */
 void GOL::on_pushButton_5_clicked() //load
 {
     QString fileName = QFileDialog::getOpenFileName(this, "Open the file");
@@ -139,6 +160,9 @@ void GOL::on_pushButton_5_clicked() //load
     update();
 }
 
+/*!
+ * @brief clears the board
+ */
 void GOL::on_pushButton_6_clicked()
 {
     int ncols = game.ncols;
@@ -153,6 +177,9 @@ void GOL::on_pushButton_6_clicked()
     update();
 }
 
+/*!
+ * @brief changes the time intervall according to the number in the spinbox
+ */
 void GOL::on_spinBox_valueChanged()
 {
     int intervall = ui->spinBox->value();
